@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Управление ролями</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1 style="margin:0 0 16px 0;">Управление ролями</h1>
+
+    <div th:if="${param.ok}" class="msg-ok" style="margin:8px 0 16px 0;">Роль назначена</div>
+
+    <div class="card">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Текущие роли</th>
+                <th>Выдать роль</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${users}">
+                <td th:text="${u.id}"></td>
+                <td th:text="${u.name}"></td>
+                <td th:text="${u.email}"></td>
+                <td>
+                    <span th:if="${#lists.isEmpty(u.roles)}">—</span>
+                    <span th:each="r, st : ${u.roles}">
+            <span th:text="${r.name}"></span><span th:if="${!st.last}">, </span>
+          </span>
+                </td>
+                <td>
+                    <form th:action="@{/admin/roles/grant}" method="post" class="actions">
+                        <input type="hidden" name="userId" th:value="${u.id}"/>
+                        <select name="roleName">
+                            <option th:each="r : ${roles}" th:value="${r}" th:text="${r}"></option>
+                        </select>
+                        <button type="submit" class="btn">Выдать</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Вход</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container center-screen">
+    <div class="card form-card">
+        <h1 style="margin-top:0;">Вход</h1>
+
+        <div th:if="${param.error}" style="color: var(--danger); font-weight:600; margin-bottom:10px;">
+            Неверный email или пароль.
+        </div>
+        <div th:if="${param.logout}" class="msg-ok" style="margin-bottom:10px;">
+            Вы вышли из системы.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <!-- Spring Security ожидает 'username' и 'password' -->
+            <label>Email<br>
+                <input type="text" name="username" placeholder="you@example.com" required
+                       style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#111827; color:var(--text);">
+            </label><br><br>
+
+            <label>Пароль<br>
+                <input type="password" name="password" placeholder="••••••••" required
+                       style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#111827; color:var(--text);">
+            </label><br><br>
+
+            <button type="submit" class="btn btn-primary btn-w">Войти</button>
+            <a th:href="@{/register}" class="btn btn-w">Регистрация</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

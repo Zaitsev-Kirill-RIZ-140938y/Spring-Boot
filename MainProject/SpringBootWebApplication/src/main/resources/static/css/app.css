@@ -1,0 +1,157 @@
+:root{
+    --bg:#0f172a;      /* slate-900 */
+    --panel:#111827;   /* gray-900 */
+    --muted:#64748b;   /* slate-500 */
+    --text:#e5e7eb;    /* gray-200 */
+    --brand:#22d3ee;   /* cyan-400 */
+    --accent:#a78bfa;  /* violet-400 */
+    --ok:#10b981;      /* emerald-500 */
+    --danger:#ef4444;  /* red-500 */
+    --border:#1f2937;  /* gray-800 */
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+
+/* Layout */
+.container{ max-width:1100px; margin:0 auto; padding:24px; }
+
+/* Header / Navbar */
+.header{ background:linear-gradient(180deg,#0b1222,#0f172a); border-bottom:1px solid var(--border); }
+.nav{ display:flex; align-items:center; gap:16px; padding:12px 24px; max-width:1100px; margin:0 auto; }
+.nav .brand{ font-weight:700; letter-spacing:.3px; color:var(--brand); text-decoration:none; }
+.nav .links{ display:flex; gap:14px; margin-left:20px; }
+.nav a{ color:var(--text); text-decoration:none; opacity:.9; }
+.nav a:hover{ color:#fff; }
+.nav .dev{ margin-left:auto; color:var(--muted); }
+.nav .user{ margin-left:16px; color:var(--accent); font-weight:600; }
+.nav form.logout{ margin-left:10px; }
+
+/* Card */
+.card{
+    background:#0b1222aa;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px;
+    backdrop-filter:blur(6px);
+}
+
+/* Table */
+table.table{ width:100%; border-collapse:collapse; overflow:hidden; border-radius:12px; }
+.table th,.table td{ padding:10px 12px; border-bottom:1px solid var(--border); text-align:left; }
+.table th{ color:#cbd5e1; background:#0c1220; font-weight:600; }
+.table tr:hover td{ background:#0c1426; }
+
+/* Buttons (унифицировано для a.btn и button.btn) */
+a.btn,button.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 14px;
+    line-height:1.2;
+    font-size:14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#111827;
+    color:var(--text);
+    text-decoration:none;
+    cursor:pointer;
+    transition:background .15s ease,border-color .15s ease,transform .02s ease;
+}
+button.btn{ appearance:none; -webkit-appearance:none; }
+a.btn:hover,button.btn:hover{ background:#162033; }
+a.btn:active,button.btn:active{ transform:translateY(1px); }
+
+.btn-primary{ border-color:#155e75; background:#0b3b4b; color:#d9faff; }
+.btn-primary:hover{ background:#0d4b5f; }
+.btn-danger{ border-color:#7f1d1d; background:#3f1a1a; color:#fecaca; }
+.btn-danger:hover{ background:#512121; }
+
+/* Одинаковая ширина кнопок (по желанию) */
+.btn-w{ min-width:140px; }
+
+/* Inputs */
+input[type="text"],input[type="email"],input[type="password"],
+input[type="number"],input[type="search"],select,textarea{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#111827;
+    color:var(--text);
+    outline:none;
+}
+input::placeholder,textarea::placeholder{ color:#94a3b8; opacity:.8; }
+input:focus,select:focus,textarea:focus{
+    border-color:#334155;
+    box-shadow:0 0 0 3px rgba(34,211,238,.12);
+}
+
+/* Inline helpers */
+.actions{ display:flex; gap:8px; align-items:center; }
+.msg-ok{ color:var(--ok); font-weight:600; }
+
+/* Hero / badges / grid */
+.hero{ padding:28px 0 16px 0; }
+.lead{ color:var(--muted); max-width:760px; }
+.badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.badge{
+    border:1px solid var(--border);
+    background:#0c1220;
+    color:#d1d5db;
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:12px;
+}
+.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+.small{ color:var(--muted); font-size:13px; }
+
+/* Центрирование форм (учитывая шапку) */
+.center-screen{
+    min-height:calc(100dvh - 64px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Узкие карточки для форм */
+.form-card{ width:100%; max-width:560px; }
+.form-card-wide{ width:100%; max-width:680px; }
+
+/* Inputs: покрываем поля без type тоже */
+input:not([type]),
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+select,
+textarea{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#111827;
+    color:var(--text);
+    outline:none;
+}
+
+/* Placeholder и фокус */
+input::placeholder,textarea::placeholder{ color:#94a3b8; opacity:.8; }
+input:focus,select:focus,textarea:focus{
+    border-color:#334155;
+    box-shadow:0 0 0 3px rgba(34,211,238,.12);
+}
+
+/* Говорим браузеру, что форма тёмная (важно для Safari) */
+input, select, textarea{ color-scheme: dark; }
+
+/* Фикс желтого/белого авто-заполнения в WebKit (Safari/Chrome) */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px #111827 inset !important;
+    box-shadow: 0 0 0 1000px #111827 inset !important;
+    -webkit-text-fill-color: var(--text) !important;
+    caret-color: var(--text);
+}

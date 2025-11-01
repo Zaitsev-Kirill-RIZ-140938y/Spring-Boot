@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Животные</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <h1 style="margin:0 0 16px 0;">Мои животные</h1>
+
+    <div style="margin: 12px 0;">
+        <a th:href="@{/animals/new}" class="btn btn-primary" sec:authorize="hasAnyRole('USER','ADMIN')">Добавить</a>
+        <a th:href="@{/admin/roles}" class="btn" sec:authorize="hasRole('ADMIN')">Управление ролями</a>
+    </div>
+
+    <div class="card">
+        <table class="table">
+            <tr>
+                <th>ID</th><th>Имя</th><th>Вид</th><th>Возраст</th>
+                <th>Расход/мес</th><th>Расход/год</th>
+                <th>Действия</th>
+            </tr>
+            <tr th:each="a: ${animals}">
+                <td th:text="${a.id}"></td>
+                <td th:text="${a.name}"></td>
+                <td th:text="${a.species}"></td>
+                <td th:text="${a.age}"></td>
+
+                <td th:text="${monthlyTotals[a.id]} ?: 0"></td>
+                <td th:text="${annualTotals[a.id]}  ?: 0"></td>
+
+                <td class="actions">
+                    <a th:href="@{|/animals/${a.id}/edit|}" class="btn" sec:authorize="hasAnyRole('USER','ADMIN')">Редактировать</a>
+                    <form th:action="@{|/animals/${a.id}/delete|}" method="post" sec:authorize="hasAnyRole('USER','ADMIN')">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                    <a th:href="@{|/expenses/${a.id}|}" class="btn">Расходы</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

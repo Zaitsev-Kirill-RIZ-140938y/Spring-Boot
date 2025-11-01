@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<header class="header" th:fragment="navbar">
+    <nav class="nav">
+        <a th:href="@{/}" class="brand">CourseAnimal</a>
+        <div class="links">
+            <a th:href="@{/animals}">Животные</a>
+            <a th:href="@{/about}">О приложении</a>
+            <a th:href="@{/admin/roles}" sec:authorize="hasRole('ADMIN')">Админка</a>
+        </div>
+
+        <!-- центр: инфо о разработчике -->
+        <div class="dev">Разработчик: вайбкодер, студент</div>
+
+        <!-- справа: текущий пользователь и выход -->
+        <span class="user" sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+        <form class="logout" th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
+            <button type="submit" class="btn">Выйти</button>
+        </form>
+
+        <div class="links" sec:authorize="!isAuthenticated()">
+            <a th:href="@{/login}">Войти</a>
+            <a th:href="@{/register}">Регистрация</a>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

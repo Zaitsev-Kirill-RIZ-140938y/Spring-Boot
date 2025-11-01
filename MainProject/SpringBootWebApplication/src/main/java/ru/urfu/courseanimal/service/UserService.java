@@ -1,0 +1,15 @@
+package ru.urfu.courseanimal.service;
+
+import ru.urfu.courseanimal.dto.UserDto;
+import ru.urfu.courseanimal.entity.User;
+
+import java.util.List;
+
+public interface UserService {
+
+    void saveUser(UserDto userDto);
+
+    User findUserByEmail(String email);
+
+    List<UserDto> findAllUsers();
+}

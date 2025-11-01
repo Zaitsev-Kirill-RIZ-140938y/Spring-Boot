@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Расходы</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Центр по экрану -->
+<div class="container center-screen">
+    <div class="card form-card">
+        <h1 style="margin-top:0;">
+            Расходы для «<span th:text="${expense.animal.name}">Животное</span>»
+        </h1>
+
+        <form th:action="@{|/expenses/${expense.animal.id}|}" method="post" th:object="${expense}">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{animal.id}"/>
+
+            <label>Корм / месяц<br>
+                <input type="number" step="0.01" min="0" th:field="*{monthlyFood}" placeholder="0.00">
+            </label><br><br>
+
+            <label>Ветеринар / месяц<br>
+                <input type="number" step="0.01" min="0" th:field="*{monthlyVet}" placeholder="0.00">
+            </label><br><br>
+
+            <label>Прочее / месяц<br>
+                <input type="number" step="0.01" min="0" th:field="*{monthlyOther}" placeholder="0.00">
+            </label><br><br>
+
+            <div class="actions" style="margin-top:6px;">
+                <button type="submit" class="btn btn-primary btn-w">Сохранить</button>
+                <a th:href="@{/animals}" class="btn btn-w">Назад</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Регистрация</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container center-screen">
+    <div class="card" style="width:100%; max-width:680px;">
+        <h1 style="margin-top:0;">Регистрация</h1>
+
+        <div th:if="${param.success}" class="msg-ok" style="margin-bottom:10px;">
+            Регистрация выполнена. Теперь можно <a th:href="@{/login}" style="color:var(--brand);">войти</a>.
+        </div>
+
+        <form th:action="@{/register/save}" th:object="${user}" method="post">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                <div>
+                    <label>Имя<br>
+                        <input th:field="*{firstName}" required
+                               style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#111827; color:var(--text);">
+                    </label>
+                    <div th:if="${#fields.hasErrors('firstName')}"
+                         th:errors="*{firstName}" style="color:var(--danger); font-size:13px; margin-top:4px;"></div>
+                </div>
+
+                <div>
+                    <label>Фамилия<br>
+                        <input th:field="*{lastName}" required
+                               style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#111827; color:var(--text);">
+                    </label>
+                    <div th:if="${#fields.hasErrors('lastName')}"
+                         th:errors="*{lastName}" style="color:var(--danger); font-size:13px; margin-top:4px;"></div>
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                    <label>Email<br>
+                        <input th:field="*{email}" type="email" required placeholder="you@example.com"
+                               style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#111827; color:var(--text);">
+                    </label>
+                    <div th:if="${#fields.hasErrors('email')}"
+                         th:errors="*{email}" style="color:var(--danger); font-size:13px; margin-top:4px;"></div>
+                </div>
+
+                <div style="grid-column: 1 / -1;">
+                    <label>Пароль<br>
+                        <input th:field="*{password}" type="password" required placeholder="Минимум 6 символов"
+                               style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:#111827; color:var(--text);">
+                    </label>
+                    <div th:if="${#fields.hasErrors('password')}"
+                         th:errors="*{password}" style="color:var(--danger); font-size:13px; margin-top:4px;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top:14px;">
+                <button type="submit" class="btn btn-primary btn-w">Зарегистрироваться</button>
+                <a th:href="@{/login}" class="btn btn-w">У меня уже есть аккаунт</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

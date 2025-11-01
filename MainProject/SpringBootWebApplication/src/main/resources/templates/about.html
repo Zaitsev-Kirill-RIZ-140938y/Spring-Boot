@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>О приложении</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <!-- Hero -->
+    <section class="hero">
+        <h1 style="margin:0 0 8px 0;">О приложении</h1>
+        <p class="lead">
+            Небольшое учебное веб-приложение для учёта домашних животных и расходов на их содержание.
+            Реализованы роли доступа (READ_ONLY / USER / ADMIN), формы входа/регистрации, список и карточки,
+            расчёт и хранение ежемесячных трат (корм, ветеринар, прочее).
+        </p>
+        <div class="badges">
+            <span class="badge">Spring Boot 3</span>
+            <span class="badge">Spring Security 6</span>
+            <span class="badge">Thymeleaf</span>
+            <span class="badge">JPA / Hibernate</span>
+            <span class="badge">H2 (file)</span>
+            <span class="badge">Actuator</span>
+            <span class="badge">Logging</span>
+        </div>
+    </section>
+
+    <!-- Контент -->
+    <div class="grid" style="margin-top:18px;">
+        <div class="card">
+            <h2 style="margin:0 0 10px 0;">О разработчике</h2>
+            <div class="small">Немного фактов — чтобы было понятно, кто всё это собрал :)</div>
+            <div style="margin-top:12px; line-height:1.9;">
+                <div><b>Статус:</b> Студент Уральского федерального университета</div>
+                <div><b>Группа:</b> РИЗ-240938у</div>
+                <div><b>Возраст:</b> 25 лет</div>
+                <div><b>Хобби:</b> смотреть, как рыбки плавают, и как дождик капает</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="margin:0 0 10px 0;">Функциональность</h2>
+            <ul style="margin:8px 0 0 16px; line-height:1.9;">
+                <li>Регистрация и вход; по умолчанию роль <code>READ_ONLY</code>.</li>
+                <li>Роли: <code>READ_ONLY</code>, <code>USER</code>, <code>ADMIN</code>
+                    (создание/редактирование доступны USER/ADMIN).</li>
+                <li>Список животных: добавление, редактирование, удаление, просмотр расходов.</li>
+                <li>Расходы: ежемесячно по категориям; в списке — сумма/мес и сумма/год.</li>
+                <li>Админка ролей: выдача прав через UI.</li>
+                <li>Actuator и логирование — для мониторинга и дебага.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 style="margin:0 0 10px 0;">Навигация</h2>
+            <p class="small">Быстрые ссылки:</p>
+            <p style="display:flex; gap:8px; flex-wrap:wrap;">
+                <a class="btn" th:href="@{/animals}">К животным</a>
+                <a class="btn" th:href="@{/admin/roles}" sec:authorize="hasRole('ADMIN')">Админка ролей</a>
+                <a class="btn" th:href="@{/login}" sec:authorize="!isAuthenticated()">Войти</a>
+                <a class="btn" th:href="@{/register}" sec:authorize="!isAuthenticated()">Регистрация</a>
+            </p>
+            <p class="small" style="margin-top:10px;">
+                Под капотом: файл-БД H2 (persist), так что данные сохраняются между перезапусками.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
